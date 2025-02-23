@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Telugu Movies</title>
+    <link rel="icon" type="image/jpeg" href="favicon2.jpeg" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #121212;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        color: white;
+      }
+      .search-container {
+        width: 100%;
+        padding: 20px;
+        background-color: #333;
+        display: flex;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        flex-direction: column;
+        align-items: center;
+      }
+      .search-box {
+        width: 50%;
+        padding: 10px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+      }
+      .suggestions {
+        background: black;
+        width: 50%;
+        max-height: 200px;
+        overflow-y: auto;
+        border-radius: 5px;
+        text-align: left;
+        display: none;
+        position: absolute;
+        top: 60px;
+        z-index: 1001;
+      }
+      .suggestions div {
+        padding: 10px;
+        cursor: pointer;
+      }
+      .suggestions div:hover {
+        background-color: #ddd;
+      }
+      .navbar {
+        width: 100%;
+        background-color: #444;
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        z-index: 999;
+      }
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        transition: background 0.3s ease-in-out;
+      }
+      .navbar a:hover {
+        background-color: #666;
+        border-radius: 5px;
+      }
+      .movies-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 120px 20px 20px;
+        justify-content: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .movie {
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+      }
+      .movie img {
+        width: 165px;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out, border 0.3s ease-in-out;
+      }
+      .highlight {
+        transform: scale(1.1);
+        border: 3px solid yellow;
+      }
+      .movie p {
+        color: white;
+        margin-top: 10px;
+        font-size: 1rem;
+      }
+    </style>
+    <script>
+      function searchMovie() {
+        let query = document.getElementById("search-box").value.toLowerCase();
+        let movies = document.getElementsByClassName("movie");
+        let suggestions = document.getElementById("suggestions");
+        suggestions.innerHTML = "";
+        let foundMovies = [];
+        for (let movie of movies) {
+          let movieName = movie
+            .getElementsByTagName("p")[0]
+            .innerText.toLowerCase();
+          if (movieName.includes(query) && query !== "") {
+            foundMovies.push(movieName);
+          }
+        }
+        if (foundMovies.length > 0) {
+          suggestions.style.display = "block";
+          foundMovies.forEach((movie) => {
+            let div = document.createElement("div");
+            div.innerText = movie;
+            div.onclick = function () {
+              document.getElementById("search-box").value = movie;
+              suggestions.style.display = "none";
+            };
+            suggestions.appendChild(div);
+          });
+        } else {
+          suggestions.style.display = "none";
+        }
+      }
+
+      function executeSearch(event) {
+        if (event.key === "Enter") {
+          let query = document.getElementById("search-box").value.toLowerCase();
+          let movies = document.getElementsByClassName("movie");
+          let found = false;
+          for (let movie of movies) {
+            let movieName = movie
+              .getElementsByTagName("p")[0]
+              .innerText.toLowerCase();
+            let imgElement = movie.getElementsByTagName("img")[0];
+            if (movieName === query) {
+              document
+                .querySelectorAll(".highlight")
+                .forEach((el) => el.classList.remove("highlight"));
+              imgElement.classList.add("highlight");
+              setTimeout(() => {
+                movie.scrollIntoView({ behavior: "smooth", block: "center" });
+              }, 500);
+              found = true;
+              break;
+            }
+          }
+          if (!found) {
+            alert("Movie not found! Please try again.");
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="search-container">
+      <input
+        type="text"
+        id="search-box"
+        class="search-box"
+        placeholder="Search for Telugu movies..."
+        oninput="searchMovie()"
+        onkeydown="executeSearch(event)"
+      />
+      <div id="suggestions" class="suggestions"></div>
+    </div>
+    <div class="navbar">
+      <a href="second.html">Back to All Movies</a>
+    </div>
+    <h1>Telugu Movies</h1>
+    <div class="movies-container">
+    <div
+        class="movie"
+        onclick="location.href='https://www.5movierulz.spa/daaku-maharaaj-2025-tamil/movie-watch-online-free-4289.html#'"
+      >
+        <img src="https://www.5movierulz.spa/uploads/Daaku-Maharaaj-Tamil.jpg" alt="Daaku Maharaj" />
+        <p>Daaku Maharaj</p>
+      </div>
+      <div class="movie" onclick="location.href='https:https://www.5movierulz.spa/bottle-radha-2025-tamil/movie-watch-online-free-4288.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Bottle-Radha-Tamil.jpg" alt="Bottle Radha" />
+        <p>Bottle Radha</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/tik-tok-2023-tamil/movie-watch-online-free-4279.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Tik-Tok-Tamil.jpg" alt="Tik tok" />
+        <p>Tik Tok</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/vidaamuyarchi-2025-tamil/movie-watch-online-free-4278.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Vidaamuyarchi-Tamil.jpg" alt="Vidaamuyarchi" />
+        <p>Vidaamuyaarchi</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/max-2024-tamil/movie-watch-online-free-4266.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Max-Tamil.jpg" alt="Max" />
+        <p>Max</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/eppura-2024-tamil/movie-watch-online-free-4257.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Eppura-Tamil.jpg" alt="Eppura" />
+        <p>Eppura</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/marco-2025-tamil/movie-watch-online-free-4254.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Marco-Tamil.jpg" alt="Marco" />
+        <p>Marco</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/paraman-2024-tamil/movie-watch-online-free-4233.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Paraman-Tamil.jpg" alt="Paraman" />
+        <p>Paraman</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/kadhalikka-neramillai-2025-tamil/movie-watch-online-free-4239.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Kadhalikka-Neramillai-Tamil.jpg" alt="Kadhalikka neramillai" />
+        <p>Kadhalikka neramillai</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/35-chinna-vishayam-ila-2025-tamil/movie-watch-online-free-4219.html#'">
+        <img src="https://www.5movierulz.spa/uploads/35-Chinna-Vishayam-Ila-Tamil.jpg" alt="Chinna vishayam" />
+        <p>Chinna vishayam</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/lara-2025-tamil/movie-watch-online-free-4218.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Lara-Tamil.jpg" alt="Lara" />
+        <p>Lara</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/game-changer-2025-tamil/movie-watch-online-free-4213.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Game-Changer-Tamil.jpg" alt="Game Changer" />
+        <p>Game Changer</p>
+      </div>
+    </div>    
+    </div>
+  </body>
+</html>

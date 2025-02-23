@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Telugu Movies</title>
+    <link rel="icon" type="image/jpeg" href="favicon2.jpeg" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #121212;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        color: white;
+      }
+      .search-container {
+        width: 100%;
+        padding: 20px;
+        background-color: #333;
+        display: flex;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        flex-direction: column;
+        align-items: center;
+      }
+      .search-box {
+        width: 50%;
+        padding: 10px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+      }
+      .suggestions {
+        background: black;
+        width: 50%;
+        max-height: 200px;
+        overflow-y: auto;
+        border-radius: 5px;
+        text-align: left;
+        display: none;
+        position: absolute;
+        top: 60px;
+        z-index: 1001;
+      }
+      .suggestions div {
+        padding: 10px;
+        cursor: pointer;
+      }
+      .suggestions div:hover {
+        background-color: #ddd;
+      }
+      .navbar {
+        width: 100%;
+        background-color: #444;
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        z-index: 999;
+      }
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        transition: background 0.3s ease-in-out;
+      }
+      .navbar a:hover {
+        background-color: #666;
+        border-radius: 5px;
+      }
+      .movies-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 120px 20px 20px;
+        justify-content: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .movie {
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+      }
+      .movie img {
+        width: 165px;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out, border 0.3s ease-in-out;
+      }
+      .highlight {
+        transform: scale(1.1);
+        border: 3px solid yellow;
+      }
+      .movie p {
+        color: white;
+        margin-top: 10px;
+        font-size: 1rem;
+      }
+    </style>
+    <script>
+      function searchMovie() {
+        let query = document.getElementById("search-box").value.toLowerCase();
+        let movies = document.getElementsByClassName("movie");
+        let suggestions = document.getElementById("suggestions");
+        suggestions.innerHTML = "";
+        let foundMovies = [];
+        for (let movie of movies) {
+          let movieName = movie
+            .getElementsByTagName("p")[0]
+            .innerText.toLowerCase();
+          if (movieName.includes(query) && query !== "") {
+            foundMovies.push(movieName);
+          }
+        }
+        if (foundMovies.length > 0) {
+          suggestions.style.display = "block";
+          foundMovies.forEach((movie) => {
+            let div = document.createElement("div");
+            div.innerText = movie;
+            div.onclick = function () {
+              document.getElementById("search-box").value = movie;
+              suggestions.style.display = "none";
+            };
+            suggestions.appendChild(div);
+          });
+        } else {
+          suggestions.style.display = "none";
+        }
+      }
+
+      function executeSearch(event) {
+        if (event.key === "Enter") {
+          let query = document.getElementById("search-box").value.toLowerCase();
+          let movies = document.getElementsByClassName("movie");
+          let found = false;
+          for (let movie of movies) {
+            let movieName = movie
+              .getElementsByTagName("p")[0]
+              .innerText.toLowerCase();
+            let imgElement = movie.getElementsByTagName("img")[0];
+            if (movieName === query) {
+              document
+                .querySelectorAll(".highlight")
+                .forEach((el) => el.classList.remove("highlight"));
+              imgElement.classList.add("highlight");
+              setTimeout(() => {
+                movie.scrollIntoView({ behavior: "smooth", block: "center" });
+              }, 500);
+              found = true;
+              break;
+            }
+          }
+          if (!found) {
+            alert("Movie not found! Please try again.");
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="search-container">
+      <input
+        type="text"
+        id="search-box"
+        class="search-box"
+        placeholder="Search for Telugu movies..."
+        oninput="searchMovie()"
+        onkeydown="executeSearch(event)"
+      />
+      <div id="suggestions" class="suggestions"></div>
+    </div>
+    <div class="navbar">
+      <a href="second.html">Back to All Movies</a>
+    </div>
+    <h1>Telugu Movies</h1>
+    <div class="movies-container">
+    <div
+        class="movie"
+        onclick="location.href='https://www.5movierulz.spa/mufasa-the-lion-king-2024-english/movie-watch-online-free-4272.html#'"
+      >
+        <img src="https://www.5movierulz.spa/uploads/Mufasa-The-Lion-King.jpg" alt="Mufasa" />
+        <p>Mufasa</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/flight-risk-2025-english/movie-watch-online-free-4260.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Flight-Risk-English.jpg" alt="Flight Risk" />
+        <p>Flight Risk</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/captain-america-brave-new-world-2025-english/movie-watch-online-free-4251.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Captain-America-Brave-New-World.jpg" alt="captain Anerica" />
+        <p>captain Anerica</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/deadpool-wolverine-2024-english/movie-watch-online-free-3449.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Deadpool-&-Wolverine-English.jpg" alt="Deadpool" />
+        <p>Deadpool</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/wolf-man-2025-english/movie-watch-online-free-4205.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Wolf-Man-English.jpg" alt="Wolf Man" />
+        <p>Wolf Man</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/moana-2-2024-english/movie-watch-online-free-4159.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Moana-2-English.jpg" alt="Moana 2" />
+        <p>Moana 2</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/sonic-the-hedgehog-3-2024-english/movie-watch-online-free-4117.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Sonic-the-Hedgehog-3.jpg" alt="Sonic the Hedgehog 3" />
+        <p>Sonic the Hedgehog 3</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/kraven-the-hunter-2024-english/movie-watch-online-free-4073.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Kraven-The-Hunter-English.jpg" alt="Kraven the Hunter" />
+        <p>Kraven the Hunter</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/smile-2-2024-english/movie-watch-online-free-3759.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Smile-2.jpg" alt="Smile 2" />
+        <p>Smile 2</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/joker-folie-a-deux-2024-english/movie-watch-online-free-3636.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Joker-Folie-a-Deux-English.jpg" alt="joker Folie a deux" />
+        <p>Joker Folie a deux</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/venom-the-last-dance-2024-english/movie-watch-online-free-3602.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Venom-The-Last-Dance-English.jpg" alt="Venom-The-Last-Dance-English" />
+        <p>Venom The Last Dance English</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/alien-romulus-2024-english/movie-watch-online-free-3550.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Alien-Romulus-English.jpg" alt="Alien Romulus English" />
+        <p>Alien Romulus English</p>
+      </div>
+    </div>    
+    </div>
+  </body>
+</html>

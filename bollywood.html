@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Telugu Movies</title>
+    <link rel="icon" type="image/jpeg" href="favicon2.jpeg" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #121212;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        color: white;
+      }
+      .search-container {
+        width: 100%;
+        padding: 20px;
+        background-color: #333;
+        display: flex;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        flex-direction: column;
+        align-items: center;
+      }
+      .search-box {
+        width: 50%;
+        padding: 10px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+      }
+      .suggestions {
+        background: black;
+        width: 50%;
+        max-height: 200px;
+        overflow-y: auto;
+        border-radius: 5px;
+        text-align: left;
+        display: none;
+        position: absolute;
+        top: 60px;
+        z-index: 1001;
+      }
+      .suggestions div {
+        padding: 10px;
+        cursor: pointer;
+      }
+      .suggestions div:hover {
+        background-color: #ddd;
+      }
+      .navbar {
+        width: 100%;
+        background-color: #444;
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        z-index: 999;
+      }
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        transition: background 0.3s ease-in-out;
+      }
+      .navbar a:hover {
+        background-color: #666;
+        border-radius: 5px;
+      }
+      .movies-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 120px 20px 20px;
+        justify-content: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .movie {
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+      }
+      .movie img {
+        width: 165px;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out, border 0.3s ease-in-out;
+      }
+      .highlight {
+        transform: scale(1.1);
+        border: 3px solid yellow;
+      }
+      .movie p {
+        color: white;
+        margin-top: 10px;
+        font-size: 1rem;
+      }
+    </style>
+    <script>
+      function searchMovie() {
+        let query = document.getElementById("search-box").value.toLowerCase();
+        let movies = document.getElementsByClassName("movie");
+        let suggestions = document.getElementById("suggestions");
+        suggestions.innerHTML = "";
+        let foundMovies = [];
+        for (let movie of movies) {
+          let movieName = movie
+            .getElementsByTagName("p")[0]
+            .innerText.toLowerCase();
+          if (movieName.includes(query) && query !== "") {
+            foundMovies.push(movieName);
+          }
+        }
+        if (foundMovies.length > 0) {
+          suggestions.style.display = "block";
+          foundMovies.forEach((movie) => {
+            let div = document.createElement("div");
+            div.innerText = movie;
+            div.onclick = function () {
+              document.getElementById("search-box").value = movie;
+              suggestions.style.display = "none";
+            };
+            suggestions.appendChild(div);
+          });
+        } else {
+          suggestions.style.display = "none";
+        }
+      }
+
+      function executeSearch(event) {
+        if (event.key === "Enter") {
+          let query = document.getElementById("search-box").value.toLowerCase();
+          let movies = document.getElementsByClassName("movie");
+          let found = false;
+          for (let movie of movies) {
+            let movieName = movie
+              .getElementsByTagName("p")[0]
+              .innerText.toLowerCase();
+            let imgElement = movie.getElementsByTagName("img")[0];
+            if (movieName === query) {
+              document
+                .querySelectorAll(".highlight")
+                .forEach((el) => el.classList.remove("highlight"));
+              imgElement.classList.add("highlight");
+              setTimeout(() => {
+                movie.scrollIntoView({ behavior: "smooth", block: "center" });
+              }, 500);
+              found = true;
+              break;
+            }
+          }
+          if (!found) {
+            alert("Movie not found! Please try again.");
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="search-container">
+      <input
+        type="text"
+        id="search-box"
+        class="search-box"
+        placeholder="Search for Telugu movies..."
+        oninput="searchMovie()"
+        onkeydown="executeSearch(event)"
+      />
+      <div id="suggestions" class="suggestions"></div>
+    </div>
+    <div class="navbar">
+      <a href="second.html">Back to All Movies</a>
+    </div>
+    <h1>Telugu Movies</h1>
+    <div class="movies-container">
+    <div
+        class="movie"
+        onclick="location.href='https://www.5movierulz.spa/mere-husband-ki-biwi-2025-hindi/movie-watch-online-free-4297.html#'"
+      >
+        <img src="https://www.5movierulz.spa/uploads/Mere-Husband-Ki-Biwi-Hindi.jpg" alt="mere husband ki biwi" />
+        <p>mere husband ki biwi</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/kaushaljis-vs-kaushal-2025-hindi/movie-watch-online-free-4291.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Kaushaljis-Vs-Kaushal-Hindi.jpg" alt="Kaushaljis vs Kaushal" />
+        <p>Kaushaljis vs Kaushal</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/thandel-2025-hindi/movie-watch-online-free-4302.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Thandel-Hindi.jpg" alt="Thandel" />
+        <p>Thandel</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/daaku-maharaaj-2025-hindi/movie-watch-online-free-4290.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Daaku-Maharaaj-Hindi-1.jpg" alt="Daku Maharaj" />
+        <p>Daku Maharaj</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/chhaava-2025-hindi/movie-watch-online-free-4262.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Chhaava-Hindi.jpg" alt="Chhaava" />
+        <p>Chhaava</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/sky-force-2025-hindi/movie-watch-online-free-4242.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Sky-Force-Hindi.jpg" alt="Sky Force" />
+        <p>Sky Force</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/loveyapa-2025-hindi/movie-watch-online-free-4229.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Loveyapa-Hindi.jpg" alt="Loyeyapa" />
+        <p>Loyeyapa</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/devaki-nandana-vasudeva-2025-hindi/movie-watch-online-free-4232.html#">
+        <img src="https://www.5movierulz.spa/uploads/Devaki-Nandana-Vasudeva-Hindi.jpg" alt="Devaki Nandana vasudeva" />
+        <p>Devaki Nandana Vasudeva</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/badass-ravikumar-2025-hindi/movie-watch-online-free-4228.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Badass-Ravikumar-Hindi.jpg" alt="Badass Ravikumar" />
+        <p>Badass Ravikumar</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/vidaamuyarchi-2025-hindi/movie-watch-online-free-4227.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Vidaamuyarchi-Hindi.jpg" alt="Vidaamuyarchi" />
+        <p>Vidaamuyarchi</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/mrs-2025-hindi/movie-watch-online-free-4212.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Mrs.-Hindi.jpg" alt="Mrs" />
+        <p>Mrs</p>
+      </div>
+      <div class="movie" onclick="location.href='https://www.5movierulz.spa/baby-john-2024-hindi/movie-watch-online-free-4207.html#'">
+        <img src="https://www.5movierulz.spa/uploads/Baby-John-Hindi-1.jpg" alt="Baby John" />
+        <p>Baby John</p>
+      </div>
+    </div>    
+    </div>
+  </body>
+</html>
